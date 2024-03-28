@@ -1,9 +1,9 @@
-import logo from "./assets/images/logo512.png";
+import main from "./assets/images/main.png";
 
 function App() {
   return (
     <>
-      <img src={logo} alt="Popcorn" width={350} height={350} />{" "}
+      <img src={main} alt="Popcorn" width={350} height={350} />{" "}
       <div>mvti해봐요</div>
     </>
   );
