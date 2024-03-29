@@ -5,7 +5,8 @@ import styled from "styled-components";
 function Home() {
   return (
     <Wrapper>
-      <div>mvti해봐요</div>
+      <div>영화성향 파악하기</div>
+      <div>Movie + MBTI = MVTI😁</div>
       <ImageWrapper>
         <img src={main} alt="main" />{" "}
       </ImageWrapper>
