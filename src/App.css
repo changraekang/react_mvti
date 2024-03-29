@@ -11,7 +11,7 @@
   src: url("./assets/fonts/BMDOHYEON_ttf.ttf");
 }
 
-/*  에스코어 폰트 굵기별 format woff 필수!! */
+/*  에스코어 폰트 굵기별 format(woff) 필수!! */
 @font-face {
   font-family: "SCDream1";
   src: url("./assets/fonts/SCDream1.woff") format('woff')
