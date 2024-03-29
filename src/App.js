@@ -1,11 +1,19 @@
-import main from "./assets/images/main.png";
+import React from "react";
+import { Routes, Route } from "react-router-dom";
+// page routes Component
+import Home from "./pages/Home";
+
+// 라우트 테스트용
+import Test from "./pages/Test";
+
+import "./App.css";
 
 function App() {
   return (
-    <>
-      <img src={main} alt="Popcorn" width={350} height={350} />{" "}
-      <div>mvti해봐요</div>
-    </>
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/test" element={<Test />} />
+    </Routes>
   );
 }
 
