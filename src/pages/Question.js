@@ -1,16 +1,11 @@
 import React from "react";
-import main from "../assets/images/Screenshot_1.png";
-import logo from "../assets/images/logo.png";
 import styled from "styled-components";
-import { useNavigate } from "react-router-dom";
+import logo from "../assets/images/logo.png";
+import main from "../assets/images/main.png";
 
-function Home() {
-  const navigate = useNavigate();
+import QuestionPage from "../components/QuestionPage";
 
-  const moveToTest = () => {
-    navigate("/question");
-  };
-
+function Question() {
   return (
     <Wrapper>
       <TitleWrapper>
@@ -23,12 +18,12 @@ function Home() {
         <Image src={main} alt="main" />
         <Image src={main} alt="main" />
       </ImageWrapper>
-      <Button onClick={moveToTest}>검사시작</Button>
+      <QuestionPage></QuestionPage>
     </Wrapper>
   );
 }
 
-export default Home;
+export default Question;
 const Wrapper = styled.div`
   min-height: 80vh;
   width: 100%;
