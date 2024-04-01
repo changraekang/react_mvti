@@ -1,9 +1,22 @@
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import notfound from "../assets/images/notfound.jpg";
+import { useLayoutEffect, useState } from "react";
 
 function NotFound() {
   const navigate = useNavigate();
+
+  const [isMobile, setIsMobile] = useState(false);
+
+  // 뷰포트 너비를 기반으로 모바일 여부 결정
+  useLayoutEffect(() => {
+    function updateSize() {
+      setIsMobile(window.innerWidth < 768); // 768px 미만을 모바일로 간주
+    }
+    window.addEventListener("resize", updateSize);
+    updateSize();
+    return () => window.removeEventListener("resize", updateSize);
+  }, []);
 
   const handleGoPrevpage = (e) => {
     e.preventDefault();
@@ -14,8 +27,9 @@ function NotFound() {
     e.preventDefault();
     navigate("/dashboard");
   };
-  return (
-    <Section>
+
+  function webNotFound() {
+    return (
       <Box>
         <Img alt="" src={notfound} />
         <div>
@@ -30,8 +44,17 @@ function NotFound() {
           </Text2>
         </div>
       </Box>
-    </Section>
-  );
+    );
+  }
+  function mobileNotFound() {
+    return (
+      <MobileBox>
+        <Text2>404 NOT FOUND</Text2>
+        <Img alt="" src={notfound} />
+      </MobileBox>
+    );
+  }
+  return <Section>{isMobile ? mobileNotFound() : webNotFound()}</Section>;
 }
 
 export default NotFound;
@@ -46,6 +69,13 @@ const Section = styled.section`
 
 const Box = styled.div`
   display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+`;
+const MobileBox = styled.div`
+  display: flex;
+  flex-direction: column;
   width: 100%;
   align-items: center;
   justify-content: center;
