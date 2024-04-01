@@ -4,7 +4,7 @@ import test from "../assets/question.json";
 
 const QuestionsPerPage = 5;
 
-function QuestionPage() {
+function MvtiQuestion() {
   const [currentPage, setCurrentPage] = useState(0);
   const [currentQuestions, setCurrentQuestions] = useState([]);
   const [scores, setScores] = useState({});
@@ -59,7 +59,7 @@ function QuestionPage() {
   );
 }
 
-export default QuestionPage;
+export default MvtiQuestion;
 const QuestionWrapper = styled.div`
   margin-bottom: 20px;
 `;

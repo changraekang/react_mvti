@@ -8,7 +8,7 @@ function Home() {
   const navigate = useNavigate();
 
   const moveToTest = () => {
-    navigate("/question");
+    navigate("/mvtiTest");
   };
 
   return (

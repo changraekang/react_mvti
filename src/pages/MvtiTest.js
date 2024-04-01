@@ -3,9 +3,9 @@ import styled from "styled-components";
 import logo from "../assets/images/logo.png";
 import main from "../assets/images/main.png";
 
-import QuestionPage from "../components/QuestionPage";
+import MvtiQuestion from "../components/MvtiQuestion";
 
-function Question() {
+function MvtiTest() {
   return (
     <Wrapper>
       <TitleWrapper>
@@ -18,12 +18,12 @@ function Question() {
         <Image src={main} alt="main" />
         <Image src={main} alt="main" />
       </ImageWrapper>
-      <QuestionPage></QuestionPage>
+      <MvtiQuestion></MvtiQuestion>
     </Wrapper>
   );
 }
 
-export default Question;
+export default MvtiTest;
 const Wrapper = styled.div`
   min-height: 80vh;
   width: 100%;
