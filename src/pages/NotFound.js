@@ -49,7 +49,7 @@ function NotFound() {
   function mobileNotFound() {
     return (
       <MobileBox>
-        <Text2>404 NOT FOUND</Text2>
+        <Text2> 더 이상 페이지를 찾을 수 없어요😢</Text2>
         <Img alt="" src={notfound} />
       </MobileBox>
     );
