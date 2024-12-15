@@ -160,10 +160,6 @@ const ScoreButton = styled.div`
   height: 20px; /* 버튼의 고정 크기 (절반으로 줄임) */
   position: relative;
   transition: all 0.3s;
-
-  &:hover {
-    background-color: #e0e0e0;
-  }
 `;
 
 const Circle = styled.div`
@@ -191,7 +187,7 @@ const Circle = styled.div`
 const ScoreButtonCenter = styled(ScoreButton)`
   border-color: #333;
   background-color: ${({ className }) =>
-    className === "selected" ? "#000" : "#fff"}; /* 선택 시 검은색 */
+    className === "selected" ? "#000" : "#fafafa"}; /* 선택 시 검은색 */
 
   color: #333;
 `;
