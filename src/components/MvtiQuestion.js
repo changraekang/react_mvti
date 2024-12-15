@@ -24,74 +24,206 @@ function MvtiQuestion() {
   };
 
   return (
-    <div>
-      {currentQuestions.map((question, index) => (
-        <QuestionWrapper key={index}>
-          <div>{question}</div>
-          <ScoreSelector>
-            {[1, 2, 3, 4, 5].map((score) => (
-              <ScoreButton
-                key={score}
-                score={score}
-                className={scores[question] === String(score) ? "selected" : ""}
-                onClick={() => handleScoreChange(question, String(score))}
-              ></ScoreButton>
-            ))}
-          </ScoreSelector>
-        </QuestionWrapper>
-      ))}
-      <button
-        onClick={() => setCurrentPage(currentPage - 1)}
-        disabled={currentPage === 0}
-      >
-        Previous
-      </button>
-      <button
-        onClick={() => setCurrentPage(currentPage + 1)}
-        disabled={
-          (currentPage + 1) * QuestionsPerPage >=
-          test.questions.flatMap((category) => category.questions).length
-        }
-      >
-        Next
-      </button>
-    </div>
+    <Container>
+      <QuestionContainer>
+        {currentQuestions.map((question, index) => (
+          <QuestionWrapper key={index}>
+            <QuestionText>
+              {currentPage * QuestionsPerPage + index + 1}. {question}
+            </QuestionText>
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                justifyContent: "space-around",
+                alignItems: "center",
+                alignSelf: "center",
+              }}
+            >
+              <div style={{ fontSize: 10 }}>그렇지 않다</div>
+              <ScoreSelector>
+                {[-4, -3, -2, -1].map((score) => (
+                  <ScoreButton
+                    key={score}
+                    onClick={() => handleScoreChange(question, String(score))}
+                  >
+                    <Circle
+                      score={-score}
+                      direction="left"
+                      className={
+                        scores[question] === String(score) ? "selected" : ""
+                      }
+                    ></Circle>
+                  </ScoreButton>
+                ))}
+              </ScoreSelector>
+              <ScoreButtonCenter
+                key={0}
+                onClick={() => handleScoreChange(question, "0")}
+              >
+                <Circle
+                  score={0}
+                  direction="center"
+                  className={scores[question] === "0" ? "selected" : ""}
+                ></Circle>
+              </ScoreButtonCenter>
+              <ScoreSelector>
+                {[1, 2, 3, 4].map((score) => (
+                  <ScoreButton
+                    key={score}
+                    onClick={() => handleScoreChange(question, String(score))}
+                  >
+                    <Circle
+                      score={score}
+                      direction="right"
+                      className={
+                        scores[question] === String(score) ? "selected" : ""
+                      }
+                    ></Circle>
+                  </ScoreButton>
+                ))}
+              </ScoreSelector>
+              <div style={{ fontSize: 10 }}>그렇다</div>
+            </div>
+          </QuestionWrapper>
+        ))}
+      </QuestionContainer>
+      <Navigation>
+        <NavButton
+          onClick={() => setCurrentPage(currentPage - 1)}
+          disabled={currentPage === 0}
+        >
+          Previous
+        </NavButton>
+        <PageIndicator>
+          Page {currentPage + 1} of{" "}
+          {Math.ceil(
+            test.questions.flatMap((category) => category.questions).length /
+              QuestionsPerPage
+          )}
+        </PageIndicator>
+        <NavButton
+          onClick={() => setCurrentPage(currentPage + 1)}
+          disabled={
+            (currentPage + 1) * QuestionsPerPage >=
+            test.questions.flatMap((category) => category.questions).length
+          }
+        >
+          Next
+        </NavButton>
+      </Navigation>
+    </Container>
   );
 }
 
 export default MvtiQuestion;
-const QuestionWrapper = styled.div`
-  margin-bottom: 20px;
+
+// 스타일 정의
+const Container = styled.div`
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  text-align: center;
 `;
 
+const QuestionContainer = styled.div`
+  margin: 20px 0;
+`;
+
+const QuestionWrapper = styled.div`
+  margin-bottom: 30px;
+  padding: 15px;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  background-color: #fafafa;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+`;
+
+const QuestionText = styled.div`
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 15px;
+`;
 const ScoreSelector = styled.div`
   display: flex;
-  width: 100%;
-  flex-direction: row;
-  justify-content: space-around;
-  margin-top: 10px;
-  align-content: center;
+  justify-content: center;
   align-items: center;
+  gap: 10px; /* 버튼 간의 간격 설정 */
+  margin: 10px 0; /* 위아래 간격 설정 */
 `;
-
 const ScoreButton = styled.div`
-  border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  align-content: center;
   cursor: pointer;
-  border-style: solid; /* 여기에 테두리 스타일을 추가합니다 */
-  border-width: 3px;
-  border-color: #745fe2;
-  transition: background-color 0.3s;
-  width: ${({ score }) => 20 * score}px;
-  height: ${({ score }) => 20 * score}px;
+  width: 20px; /* 버튼의 고정 크기 (절반으로 줄임) */
+  height: 20px; /* 버튼의 고정 크기 (절반으로 줄임) */
+  position: relative;
+  transition: all 0.3s;
+
   &:hover {
-    background-color: #dedede;
+    background-color: #e0e0e0;
   }
-  &.selected {
-    background-color: #4caf50;
-    color: white;
+`;
+
+const Circle = styled.div`
+  border-radius: 50%;
+  width: 10px; /* 원의 기본 크기 (절반으로 줄임) */
+  height: 10px; /* 원의 기본 크기 (절반으로 줄임) */
+  background-color: ${({ className, direction }) =>
+    className === "selected"
+      ? direction === "left"
+        ? "#E1E428"
+        : "#C9B2DF"
+      : "#fff"}; /* 선택 시 검은색 */
+  border: 2px solid
+    ${({ direction }) => (direction === "left" ? "#E1E428" : "#C9B2DF")};
+  color: ${({ className }) => (className === "selected" ? "#fff" : "#333")};
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: scale(
+    ${({ score }) => 1 + (score - 1) * 0.2}
+  ); /* 점점 커지도록 설정 */
+  transition: transform 0.3s;
+`;
+
+const ScoreButtonCenter = styled(ScoreButton)`
+  border-color: #333;
+  background-color: ${({ className }) =>
+    className === "selected" ? "#000" : "#fff"}; /* 선택 시 검은색 */
+
+  color: #333;
+`;
+const Navigation = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+`;
+
+const NavButton = styled.button`
+  background-color: #745fe2;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: all 0.3s;
+
+  &:disabled {
+    background-color: #ddd;
+    cursor: not-allowed;
   }
+
+  &:hover:enabled {
+    background-color: #563db8;
+  }
+`;
+
+const PageIndicator = styled.div`
+  font-size: 16px;
+  font-weight: bold;
+  color: #555;
 `;
