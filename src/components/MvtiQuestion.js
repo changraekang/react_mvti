@@ -31,59 +31,72 @@ function MvtiQuestion() {
             <QuestionText>
               {currentPage * QuestionsPerPage + index + 1}. {question}
             </QuestionText>
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "row",
-                justifyContent: "space-around",
-                alignItems: "center",
-                alignSelf: "center",
-              }}
-            >
-              <div style={{ fontSize: 10 }}>그렇지 않다</div>
-              <ScoreSelector>
-                {[-4, -3, -2, -1].map((score) => (
-                  <ScoreButton
-                    key={score}
-                    onClick={() => handleScoreChange(question, String(score))}
-                  >
-                    <Circle
-                      score={-score}
-                      direction="left"
-                      className={
-                        scores[question] === String(score) ? "selected" : ""
-                      }
-                    ></Circle>
-                  </ScoreButton>
-                ))}
-              </ScoreSelector>
-              <ScoreButtonCenter
-                key={0}
-                onClick={() => handleScoreChange(question, "0")}
+            <div>
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "row",
+                  justifyContent: "space-evenly",
+                  alignItems: "center",
+                  alignSelf: "center",
+                }}
               >
-                <Circle
-                  score={0}
-                  direction="center"
-                  className={scores[question] === "0" ? "selected" : ""}
-                ></Circle>
-              </ScoreButtonCenter>
-              <ScoreSelector>
-                {[1, 2, 3, 4].map((score) => (
-                  <ScoreButton
-                    key={score}
-                    onClick={() => handleScoreChange(question, String(score))}
-                  >
-                    <Circle
-                      score={score}
-                      direction="right"
-                      className={
-                        scores[question] === String(score) ? "selected" : ""
-                      }
-                    ></Circle>
-                  </ScoreButton>
-                ))}
-              </ScoreSelector>
-              <div style={{ fontSize: 10 }}>그렇다</div>
+                <ScoreSelector style={{ paddingLeft: 20 }}>
+                  {[-4, -3, -2, -1].map((score) => (
+                    <ScoreButton
+                      key={score}
+                      onClick={() => handleScoreChange(question, String(score))}
+                    >
+                      <Circle
+                        score={-score}
+                        direction="left"
+                        className={
+                          scores[question] === String(score) ? "selected" : ""
+                        }
+                      ></Circle>
+                    </ScoreButton>
+                  ))}
+                </ScoreSelector>
+
+                <ScoreButtonCenter
+                  key={0}
+                  onClick={() => handleScoreChange(question, "0")}
+                >
+                  <Circle
+                    score={0}
+                    direction="center"
+                    className={scores[question] === "0" ? "selected" : ""}
+                  ></Circle>
+                </ScoreButtonCenter>
+                <ScoreSelector style={{ paddingRight: 20 }}>
+                  {[1, 2, 3, 4].map((score) => (
+                    <ScoreButton
+                      key={score}
+                      onClick={() => handleScoreChange(question, String(score))}
+                    >
+                      <Circle
+                        score={score}
+                        direction="right"
+                        className={
+                          scores[question] === String(score) ? "selected" : ""
+                        }
+                      ></Circle>
+                    </ScoreButton>
+                  ))}
+                </ScoreSelector>
+              </div>
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "row",
+                  justifyContent: "space-around",
+                  alignItems: "center",
+                  alignSelf: "center",
+                }}
+              >
+                <div style={{ fontSize: 10, padding: 10 }}>그렇지 않다</div>
+                <div style={{ fontSize: 10, padding: 10 }}>그렇다</div>
+              </div>
             </div>
           </QuestionWrapper>
         ))}
