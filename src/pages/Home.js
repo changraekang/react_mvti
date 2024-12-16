@@ -10,6 +10,9 @@ function Home() {
   const moveToTest = () => {
     navigate("/mvtiTest");
   };
+  const moveToCharacter = () => {
+    navigate("/mvtiCharacter");
+  };
 
   return (
     <Wrapper>
@@ -23,7 +26,10 @@ function Home() {
         <Image src={main} alt="main" />
         <Image src={main} alt="main" />
       </ImageWrapper>
-      <Button onClick={moveToTest}>검사시작</Button>
+      <div>
+        <Button onClick={moveToTest}>검사시작</Button>
+        <Button onClick={moveToCharacter}>취향분석표</Button>
+      </div>
     </Wrapper>
   );
 }

@@ -7,6 +7,8 @@ import Home from "./pages/Home";
 import Test from "./pages/Test";
 // mvti 페이지
 import MvtiTest from "./pages/MvtiTest";
+// 성향 분석표
+import MvtiCharacter from "./pages/MvtiCharacter";
 
 import "./App.css";
 import NotFound from "./pages/NotFound";
@@ -16,6 +18,7 @@ function App() {
     <Routes>
       <Route path="/" element={<Home />} />
       <Route path="/mvtiTest" element={<MvtiTest />} />
+      <Route path="/mvtiCharacter" element={<MvtiCharacter />} />
       <Route path="/test" element={<Test />} />
 
       {/* 에러페이지 */}
