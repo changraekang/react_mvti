@@ -2,34 +2,43 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import test from "../assets/question.json";
 
-const QuestionsPerPage = 5;
+const QuestionsPerPage = 6;
 
 function MvtiQuestion() {
   const [currentPage, setCurrentPage] = useState(0);
   const [currentQuestions, setCurrentQuestions] = useState([]);
   const [scores, setScores] = useState({});
+  const [typeScores, setTypeScores] = useState({}); // 타입별 점수 계산
+  const [showResult, setShowResult] = useState(false);
 
+  // 현재 페이지 질문 설정
   useEffect(() => {
-    const questions = test.questions.flatMap((category) => category.questions);
+    const questions = test.questions;
     const start = currentPage * QuestionsPerPage;
     const current = questions.slice(start, start + QuestionsPerPage);
     setCurrentQuestions(current);
   }, [currentPage]);
-
-  const handleScoreChange = (question, score) => {
+  // 점수 업데이트 및 타입별 점수 누적 계산
+  const handleScoreChange = (question, score, type) => {
     setScores((prevScores) => ({
       ...prevScores,
       [question]: score,
+    }));
+
+    setTypeScores((prevTypeScores) => ({
+      ...prevTypeScores,
+      [type]: (prevTypeScores[type] || 0) + score,
     }));
   };
 
   return (
     <Container>
       <QuestionContainer>
-        {currentQuestions.map((question, index) => (
+        {currentQuestions.map((questionObj, index) => (
           <QuestionWrapper key={index}>
             <QuestionText>
-              {currentPage * QuestionsPerPage + index + 1}. {question}
+              {currentPage * QuestionsPerPage + index + 1}.{" "}
+              {questionObj.question}
             </QuestionText>
             <div>
               <div
@@ -45,13 +54,19 @@ function MvtiQuestion() {
                   {[-4, -3, -2, -1].map((score) => (
                     <ScoreButton
                       key={score}
-                      onClick={() => handleScoreChange(question, String(score))}
+                      onClick={() =>
+                        handleScoreChange(
+                          questionObj.id,
+                          score,
+                          questionObj.type
+                        )
+                      }
                     >
                       <Circle
                         score={-score}
                         direction="left"
                         className={
-                          scores[question] === String(score) ? "selected" : ""
+                          scores[questionObj.id] === score ? "selected" : ""
                         }
                       ></Circle>
                     </ScoreButton>
@@ -60,25 +75,33 @@ function MvtiQuestion() {
 
                 <ScoreButtonCenter
                   key={0}
-                  onClick={() => handleScoreChange(question, "0")}
+                  onClick={() =>
+                    handleScoreChange(questionObj.id, 0, questionObj.type)
+                  }
                 >
                   <Circle
                     score={0}
                     direction="center"
-                    className={scores[question] === "0" ? "selected" : ""}
+                    className={scores[questionObj.id] === "0" ? "selected" : ""}
                   ></Circle>
                 </ScoreButtonCenter>
                 <ScoreSelector style={{ paddingRight: 20 }}>
                   {[1, 2, 3, 4].map((score) => (
                     <ScoreButton
                       key={score}
-                      onClick={() => handleScoreChange(question, String(score))}
+                      onClick={() =>
+                        handleScoreChange(
+                          questionObj.id,
+                          score,
+                          questionObj.type
+                        )
+                      }
                     >
                       <Circle
                         score={score}
                         direction="right"
                         className={
-                          scores[question] === String(score) ? "selected" : ""
+                          scores[questionObj.id] === score ? "selected" : ""
                         }
                       ></Circle>
                     </ScoreButton>
